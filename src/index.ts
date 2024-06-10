@@ -35,7 +35,8 @@ const resolveApiUrl = (req: Request) => {
 };
 
 function conditionalValidateToken(req: Request, res: Response, next: NextFunction) {
-  const openRoutesRegex = /^\/accommodation\/[a-zA-Z0-9]+$/;
+  const openRoutesRegex = /^\/(accommodation)|(api)\/[a-zA-Z0-9]+$/;
+
 
   if (req.method === 'GET' && openRoutesRegex.test(req.originalUrl)) {
     next();
@@ -72,6 +73,10 @@ const validateToken = async (req: Request, res: Response, next: NextFunction) =>
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
+app.get('/api/health', (req: Request, res: Response) => {
+    return res.status(200).json({message: "Hello, World!"});
+})
+
 app.use('/*', conditionalValidateToken, function(req, res, next) {
     createProxyMiddleware({
       target: resolveApiUrl(req),
@@ -89,10 +94,6 @@ app.use('/*', conditionalValidateToken, function(req, res, next) {
     })(req, res, next);
   });
 
-
-app.get('/api/health', (req: Request, res: Response) => {
-    return res.status(200).json({message: "Hello, World!"});
-})
 
 
 app.listen(PORT, () => {
