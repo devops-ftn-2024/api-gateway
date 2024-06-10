@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    image: accommodatio-api-gateway:latest
+    environment:
+      PORT: 4200
+      USERS_URL: http://localhost:3002
+      AUTH_URL: http://localhost:3001
+      ACCOMMODATION_URL: http://localhost:3003
+      ALLOWED_ORIGIN: http://localhost:3000
+    ports:
+      - "4200:4200"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4200/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  app-network:
+    driver: bridge
