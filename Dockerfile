@@ -16,6 +16,6 @@ COPY --chown=node:node . .
 
 RUN npx tsc
 
-EXPOSE 3001
+EXPOSE 4200
 
 CMD ["node", "dist/index.js"]
