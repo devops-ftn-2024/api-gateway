@@ -8,4 +8,10 @@ export const getUrl = (service: string) => {
     if (service === 'accommodation') {
         return process.env.ACCOMMODATION_URL;
     }
+    if (service === 'availabilities' || service === 'reservations') {
+        return process.env.AVAILABILITIES_URL;
+    }
+    if (service === 'reviews') {
+        return process.env.REVIEWS_URL;
+    }
 };
