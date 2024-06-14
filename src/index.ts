@@ -26,7 +26,7 @@ interface RequestWithUser extends Request {
 const resolveApiUrl = (req: Request) => {
     const url = req.originalUrl;
     let baseUrl;
-    const defaultUrlService = url?.split('/')[1];
+    const defaultUrlService = url?.split('/')[1].split('?')[0];
     baseUrl = getUrl(defaultUrlService);
     if (!baseUrl) {
         throw new Error('Service not found');
@@ -35,8 +35,7 @@ const resolveApiUrl = (req: Request) => {
 };
 
 function conditionalValidateToken(req: Request, res: Response, next: NextFunction) {
-  const openRoutesRegex = /^\/(accommodation)|(api)\/[a-zA-Z0-9]+$/;
-
+  const openRoutesRegex = /^\/(accommodation|api|availabilities\?)\/?[a-zA-Z0-9-&%=\/]*$/;
 
   if (req.method === 'GET' && openRoutesRegex.test(req.originalUrl)) {
     next();
