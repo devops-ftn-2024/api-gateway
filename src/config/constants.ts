@@ -14,4 +14,7 @@ export const getUrl = (service: string) => {
     if (service === 'reviews') {
         return process.env.REVIEWS_URL;
     }
+    if (service === 'notifications') {
+        return process.env.NOTIFICATIONS_URL;
+    }
 };
