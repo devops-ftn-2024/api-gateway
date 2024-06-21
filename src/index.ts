@@ -35,7 +35,7 @@ const resolveApiUrl = (req: Request) => {
 };
 
 function conditionalValidateToken(req: Request, res: Response, next: NextFunction) {
-  const openRoutesRegex = /^\/(accommodation|api|availabilities\?)\/?[a-zA-Z0-9-&%=\/]*$/;
+  const openRoutesRegex = /^\/(accommodation(?!\/mine)|api|availabilities\?)\/?[a-zA-Z0-9-&%=\/]*$/;
   const userRouteRegex = /^\/?users\/(?!profile).*$/;
   const reviewsRouteRegex = /^\/?reviews\/.*$/;
 
