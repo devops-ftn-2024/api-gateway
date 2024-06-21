@@ -36,8 +36,10 @@ const resolveApiUrl = (req: Request) => {
 
 function conditionalValidateToken(req: Request, res: Response, next: NextFunction) {
   const openRoutesRegex = /^\/(accommodation|api|availabilities\?)\/?[a-zA-Z0-9-&%=\/]*$/;
+  const userRouteRegex = /^\/?users\/(?!profile).*$/;
+  const reviewsRouteRegex = /^\/?reviews\/.*$/;
 
-  if (req.method === 'GET' && openRoutesRegex.test(req.originalUrl)) {
+  if (req.method === 'GET' && (openRoutesRegex.test(req.originalUrl) || userRouteRegex.test(req.originalUrl) || reviewsRouteRegex.test(req.originalUrl))) {
     next();
   } else {
     validateToken(req, res, next);
